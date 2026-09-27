@@ -55,3 +55,4 @@ java -jar .\jade-loader.jar
 ```
 
 Only Lunar and Forge have been tested. 
+Java 17 is required to run the loader, if it errors that's probbaly why.
