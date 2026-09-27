@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "minVersion": "0.7",
+  "package": "net.jade.dev.agent.transformer",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinMinecraftModBootstrap"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

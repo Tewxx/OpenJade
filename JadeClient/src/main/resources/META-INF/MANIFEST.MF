@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Agent-Class: jade.inject.InjectionAgent
+Can-Retransform-Classes: true
+Can-Redefine-Classes: true
+

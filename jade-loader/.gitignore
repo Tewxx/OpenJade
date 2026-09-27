@@ -1,0 +1,21 @@
+# Build output
+*.exe
+*.jar
+*.dll
+.gocache/
+
+# Local bootstrap context: contains this machine's envelope/key and nonce.
+# Retained locally only; the Java loader does not use it.
+jade-bootstrap.json
+
+# Compiled test helpers
+testdata/classes/
+testdata/classes25/
+testdata/META-INF/
+testdata/*.log
+
+jade-bridge.dll
+
+# The Gradle wrapper is required to build from a clean checkout.
+!gradle/wrapper/gradle-wrapper.jar
+.gradle-user-home/

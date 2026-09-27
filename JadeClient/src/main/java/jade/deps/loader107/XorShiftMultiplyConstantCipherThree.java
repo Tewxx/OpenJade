@@ -1,0 +1,22 @@
+package jade.deps.loader107;
+
+public final class XorShiftMultiplyConstantCipherThree {
+   private XorShiftMultiplyConstantCipherThree() {
+   }
+
+   public static int decodeInt(int var0, int var1) {
+      return var0 ^ computeMix(var1);
+   }
+
+   public static long BmsyHq(long var0, int var2) {
+      return var0 ^ (computeMix(var2) & -1 | (computeMix(var2 ^ 1597334677) & -1) << 32);
+   }
+
+   private static int computeMix(int var0) {
+      int var1 = var0 ^ -458719658  ^ -1773650375;
+      var1 ^= var1 << 13;
+      var1 ^= var1 >>> 17;
+      var1 ^= var1 << 5;
+      return var1 * 73244475;
+   }
+}

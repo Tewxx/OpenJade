@@ -1,0 +1,10 @@
+[
+    {
+      "modid": "jade",
+      "name": "Jade",
+      "description": "Jade is a PvP-focused utility mod for Minecraft 1.8.9. Made by penguinu and batscastle.",
+      "version": "16.0.10",
+      "authorList": ["penguinu", "batscastle"],
+      "credits": "penguinu and batscastle"
+    }
+]

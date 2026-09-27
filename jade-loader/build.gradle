@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+// Compile with the installed JDK; the resulting jar runs on Java 17+.
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+    options.encoding = 'UTF-8'
+    options.incremental = false
+}
+
+jar {
+    archiveFileName = 'jade-loader.jar'
+    manifest {
+        attributes 'Main-Class': 'jade.loader.JadeLoader'
+    }
+}
+
+// The native bridge is bundled in the jar; users do not need a separate DLL.
+def nativeOutput = layout.buildDirectory.dir('generated/native-resources')
+tasks.register('compileNative', Exec) {
+    inputs.file('src/main/native/jade_bridge.c')
+    outputs.file(nativeOutput.map { it.file('native/jade-bridge.dll') })
+    doFirst {
+        def output = nativeOutput.get().file('native/jade-bridge.dll').asFile
+        output.parentFile.mkdirs()
+        def include = new File(System.getProperty('java.home'), 'include')
+        commandLine(providers.gradleProperty('gcc').getOrElse('gcc'), '-shared', '-O2', '-s', '-m64',
+            '-static-libgcc', '-Wall', '-Wextra', '-I' + include, '-I' + new File(include, 'win32'),
+            '-o', output, file('src/main/native/jade_bridge.c'))
+    }
+}
+sourceSets.main.resources.srcDir(nativeOutput)
+tasks.named('processResources') { dependsOn 'compileNative' }

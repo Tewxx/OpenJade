@@ -1,0 +1,12 @@
+// Jade recovery: recovered class name: IAccessorC0DPacketCloseWindow; mixin target: net.minecraft.network.play.client.C0DPacketCloseWindow
+package jade.mixin.impl.accessor;
+
+import net.minecraft.network.play.client.C0DPacketCloseWindow;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+@Mixin(C0DPacketCloseWindow.class)
+public interface IAccessorC0DPacketCloseWindow {
+   @Accessor("windowId")
+   int getWindowId();
+}

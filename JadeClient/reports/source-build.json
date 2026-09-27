@@ -1,0 +1,9 @@
+{
+  "source_compilation": true,
+  "source_classes": 1764,
+  "total_classes": 2753,
+  "mixins": 57,
+  "sha256": "1d0a50505028fbfdb30d119edc03b51a767098b0eec3681f9a3e0c12a9635f45",
+  "runtime_tested": false,
+  "bootstrap_requires_original_context": false
+}

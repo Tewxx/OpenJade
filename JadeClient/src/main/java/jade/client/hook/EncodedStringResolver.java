@@ -1,0 +1,44 @@
+// Jade recovery: original class: jade.deps.eLz.s5g68pOI
+package jade.client.hook;
+
+import java.lang.invoke.CallSite;
+import java.lang.invoke.ConstantCallSite;
+import java.lang.invoke.MethodHandles.Lookup;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+public final class EncodedStringResolver {
+   private static final byte[] twfVr1 = new byte[]{
+      -23, 104, 30, -19, 121, 27, 53, -15, -97, 26, -48, -8, 27, 35, 34, 22, -100, 82, 107, 126, -75, -25, 12, -42, -92, 17, -117, 96, 126, -24, -96, 68
+   };
+
+   private EncodedStringResolver() {
+   }
+
+   public static String twfVr(String var0, int var1) {
+      byte[] var2 = Base64.getDecoder().decode(var0);
+      int var3 = var2.length;
+      byte[] var4 = new byte[var3];
+
+      for (int var5 = 0; var5 < var3; var5++) {
+         int var6 = (var2[var5] & 255) - (var1 >>> (var5 & 7) & 31) & 0xFF ^ twfVr0(var5, var1);
+         var4[var5] = (byte)var6;
+      }
+
+      return new String(var4, StandardCharsets.UTF_8);
+   }
+
+   public static CallSite twfVr2(Lookup var0, String var1, MethodType var2, String var3, int var4) {
+      return new ConstantCallSite(MethodHandles.constant(String.class, twfVr(var3, var4)));
+   }
+
+   private static int twfVr0(int var0, int var1) {
+      int var2 = var1 + -1640531527 + 2135587861 + var0;
+      var2 ^= var2 >>> 15;
+      var2 *= -2048144789;
+      var2 ^= var2 >>> 13;
+      return (twfVr1[var0 * 5 + var1 + 1 & 31] ^ var2) & 0xFF;
+   }
+}

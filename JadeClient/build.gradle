@@ -1,0 +1,7 @@
+plugins { id 'base' }
+tasks.register('buildAgent', Exec) {
+    group = 'build'
+    description = 'Compile recovered client sources and build the agent and Attach API injector'
+    commandLine 'powershell.exe', '-NoProfile', '-File', new File(projectDir, 'build.ps1').path
+}
+tasks.named('assemble') { dependsOn 'buildAgent' }

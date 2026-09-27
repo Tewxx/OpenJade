@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+ForceLoadAsMod: true
+TweakOrder: 0
+ModSide: CLIENT
+FMLCorePluginContainsFMLMod: false
+TweakClass: org.spongepowered.asm.launch.MixinTweaker
+Premain-Class: net.jade.dev.agent.AgentBootstrap
+Agent-Class: net.jade.dev.agent.AgentBootstrap
+Can-Retransform-Classes: true
+Can-Redefine-Classes: true
+

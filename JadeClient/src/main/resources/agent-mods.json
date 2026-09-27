@@ -1,0 +1,9 @@
+{
+  "mods": [
+    {
+      "jar": "$SELF",
+      "mixin": "mixins.jade.json",
+      "property": "jade.agent.injected"
+    }
+  ]
+}
