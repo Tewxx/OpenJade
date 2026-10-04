@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,6 +32,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 import net.minecraft.util.Session;
@@ -333,7 +335,10 @@ public class MicrosoftLogin {
                CountDownLatch var13 = new CountDownLatch(1);
                AtomicReference var4 = new AtomicReference();
                AtomicReference var5 = new AtomicReference();
-               var1x = HttpServer.create(new InetSocketAddress(25575), 0);
+               var1x = HttpServer.create(
+                  new InetSocketAddress(InetAddress.getLoopbackAddress(), 25575),
+                  0
+               );
                MicrosoftLogin.Wvoo(var1x);
                MicrosoftLogin.Eeln(var13);
                var1x.createContext("/callback", var6x -> MicrosoftLogin.handleOAuthCallback(var6x, var2, var4, var5, var13));
@@ -345,7 +350,10 @@ public class MicrosoftLogin {
                   var1.set("Complete login in browser...");
                }
 
-               var13.await();
+               if (!var13.await(5L, TimeUnit.MINUTES)) {
+                  var1.set("Microsoft login timed out. Please try again.");
+                  return null;
+               }
                if (var5.get() != null) {
                   var1.set((String)var5.get());
                   return null;
@@ -621,12 +629,12 @@ public class MicrosoftLogin {
    }
 
    private static void cbYnoE(HttpExchange var0, String var1, AtomicReference<String> var2, AtomicReference<String> var3, CountDownLatch var4) throws IOException {
+      boolean validState = false;
       try {
          String var5 = var0.getRequestURI().getRawQuery();
          String var6 = xnbej(var5, "state");
-         if (!var1.equals(var6)) {
-            var3.set("State mismatch during OAuth login");
-         } else {
+         if (var1.equals(var6)) {
+            validState = true;
             String var7 = xnbej(var5, "code");
             if (var7 != null && !var7.isEmpty()) {
                var2.set(var7);
@@ -649,7 +657,9 @@ public class MicrosoftLogin {
          var14.write(var13);
          var14.close();
       } finally {
-         var4.countDown();
+         if (validState) {
+            var4.countDown();
+         }
       }
    }
 
